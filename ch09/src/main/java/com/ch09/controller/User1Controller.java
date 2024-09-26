@@ -58,13 +58,15 @@ public class User1Controller {
     @DeleteMapping("/user1/{uid}")
     public ResponseEntity delete(@PathVariable("uid") String uid){
 
-        try {
+        try{
             user1Service.deleteUser1(uid);
             return ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
-                    .body("succcess");
-        }catch (EntityNotFoundException e){}
+                    .status(HttpStatus.OK) // 200
+                    .body("success");
+        }catch (EntityNotFoundException e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND) // 200
+                    .body(e.getMessage());
+        }
     }
-
-
 }

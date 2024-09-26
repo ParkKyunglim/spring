@@ -1,9 +1,9 @@
 package com.ch09.service;
 
 import com.ch09.dto.User1DTO;
-import com.ch09.entity.User1;
+import com.ch09.dto.User2DTO;
+import com.ch09.entity.User2;
 import com.ch09.repository.User1Repository;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,29 +15,29 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class User1Service {
+public class User2Service {
 
-    private final User1Repository user1Repository;
+    private final User2Repository user2Repository;
 
-    public User1 insertUser1(User1DTO user1DTO) {
-        User1 entity = user1DTO.toEntity();
-        return user1Repository.save(entity);
+    public User2 insertUser2(User2DTO user2DTO) {
+        User2 entity = user2DTO.toEntity();
+        return user2Repository.save(entity);
     }
 
-    public User1DTO selectUser1(String uid){
+    public User1DTO selectUser2(String uid){
 
-        Optional<User1> opt = user1Repository.findById(uid);
+        Optional<User2> opt = user2Repository.findById(uid);
 
         if(opt.isPresent()){
-            User1 user1 = opt.get();
-            return user1.toDTO();
+            User2 user2 = opt.get();
+            return user2.toDTO();
         }
         return null;
     }
 
     public List<User1DTO> selectUser1s(){
 
-        List<User1> user1s = user1Repository.findAll();
+        List<User2> user1s = user1Repository.findAll();
 
         List<User1DTO> users = user1s
                 .stream()
@@ -46,12 +46,12 @@ public class User1Service {
         return users;
     }
 
-    public User1 updateUser1(User1DTO user1DTO) {
+    public User2 updateUser1(User1DTO user1DTO) {
 
         boolean result = user1Repository.existsById(user1DTO.getUid());
 
         if(result){
-            User1 entity = user1DTO.toEntity();
+            User2 entity = user1DTO.toEntity();
             return user1Repository.save(entity);
         }
         return null;
